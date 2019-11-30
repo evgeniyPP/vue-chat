@@ -8,6 +8,7 @@
       <p>Возможно, также используется BootstrapVue</p>
     </b-jumbotron>
     <b-form-group :validated="validated">
+      <b-alert :show="alert" variant="danger">{{ alertText }}</b-alert>
       <label for="username">Введите свой никнейм</label>
       <b-form-input
         :value="username"
@@ -35,7 +36,9 @@ export default {
   data() {
     return {
       username: "",
-      validated: false
+      validated: false,
+      alert: false,
+      alertText: ""
     };
   },
   methods: {
@@ -47,8 +50,18 @@ export default {
         this.validated = false;
       }
     },
-    onSubmit() {
-      this.$router.push("/chat");
+    async onSubmit() {
+      try {
+        await this.$store.dispatch("login", this.username);
+        this.$router.push("/chat");
+      } catch (e) {
+        this.alert = true;
+        if (e.info.error === "services/chatkit/not_found/user_not_found") {
+          this.alertText = "Пользователь не найден";
+        } else {
+          this.alertText = "Неизвестная ошибка";
+        }
+      }
     }
   }
 };
@@ -67,5 +80,9 @@ export default {
 
 .btn {
   margin-top: 1.5em;
+}
+
+.alert {
+  margin: 0 auto 1em auto;
 }
 </style>

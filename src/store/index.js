@@ -1,10 +1,12 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import chatkit from "../chatkit";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    username: null,
     users: [
       {
         name: "Женя",
@@ -29,10 +31,26 @@ export default new Vuex.Store({
     ]
   },
   getters: {
+    username(state) {
+      return state.username;
+    },
     users(state) {
       return state.users;
     }
   },
-  mutations: {},
-  actions: {}
+  mutations: {
+    setUsername(state, id) {
+      state.username = id;
+    }
+  },
+  actions: {
+    async login(store, username) {
+      const currentUser = await chatkit.connectUser(username);
+      if (currentUser === []) {
+        return false;
+      }
+      store.commit("setUsername", currentUser.id);
+      return true;
+    }
+  }
 });
