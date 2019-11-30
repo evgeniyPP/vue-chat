@@ -16,26 +16,12 @@
       >
       <b-collapse id="collapse-1" class="mt-2">
         <b-card>
-          <div class="users">
+          <div class="users" v-for="(user, index) in users" :key="index">
             <div class="user">
-              <span>Женя</span>
-              <span class="status online">В сети</span>
-            </div>
-            <div class="user">
-              <span>Влад</span>
-              <span class="status">Не в сети</span>
-            </div>
-            <div class="user">
-              <span>Эдик</span>
-              <span class="status online">В сети</span>
-            </div>
-            <div class="user">
-              <span>Глеб</span>
-              <span class="status">Не в сети</span>
-            </div>
-            <div class="user">
-              <span>Ваня</span>
-              <span class="status">Не в сети</span>
+              <span>{{ user.name }}</span>
+              <span class="status" :class="statusClass(user.online)">{{
+                status(user.online)
+              }}</span>
             </div>
           </div>
         </b-card>
@@ -45,7 +31,21 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    status(online) {
+      return online ? "В сети" : "Не в сети";
+    },
+    statusClass(online) {
+      return online ? "online" : "";
+    }
+  },
+  computed: {
+    users() {
+      return this.$store.getters.users;
+    }
+  }
+};
 </script>
 
 <style scoped>
