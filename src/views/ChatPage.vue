@@ -7,12 +7,21 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import Navbar from "../components/Navbar";
 import Messages from "../components/Messages";
 import NewMessage from "../components/NewMessage";
 
 export default {
-  components: { Navbar, Messages, NewMessage }
+  components: { Navbar, Messages, NewMessage },
+  computed: {
+    ...mapGetters(["username"])
+  },
+  beforeMount() {
+    if (this.username === null) {
+      this.$router.push("/");
+    }
+  }
 };
 </script>
 
