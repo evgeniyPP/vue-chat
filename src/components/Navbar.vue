@@ -16,11 +16,11 @@
       >
       <b-collapse id="collapse-1" class="mt-2">
         <b-card>
-          <div class="users" v-for="(user, index) in users" :key="index">
-            <div class="user">
+          <div class="users">
+            <div class="user" v-for="(user, index) in users" :key="index">
               <span>{{ user.name }}</span>
-              <span class="status" :class="statusClass(user.online)">{{
-                status(user.online)
+              <span class="status" :class="statusClass(user.presence)">{{
+                status(user.presence)
               }}</span>
             </div>
           </div>
@@ -31,19 +31,19 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   methods: {
-    status(online) {
-      return online ? "В сети" : "Не в сети";
+    status(presence) {
+      return presence === "online" ? "В сети" : "Не в сети";
     },
-    statusClass(online) {
-      return online ? "online" : "";
+    statusClass(presence) {
+      return presence === "online" ? "online" : "";
     }
   },
   computed: {
-    users() {
-      return this.$store.getters.users;
-    }
+    ...mapGetters(["users"])
   }
 };
 </script>
@@ -56,6 +56,10 @@ export default {
   margin: 0;
   border-radius: 0;
   text-align: left;
+}
+
+.users {
+  padding-bottom: 1em;
 }
 
 .status {

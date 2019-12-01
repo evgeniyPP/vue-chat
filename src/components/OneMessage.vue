@@ -1,14 +1,16 @@
 <template>
   <b-card>
-    <h6>Женя</h6>
+    <h6>{{ message.username }}</h6>
     <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+      {{ message.text }}
     </p>
   </b-card>
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["message"]
+};
 </script>
 
 <style>

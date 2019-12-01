@@ -2,33 +2,15 @@ import Vue from "vue";
 import Vuex from "vuex";
 import chatkit from "../chatkit";
 
+const MAIN_ROOM_ID = "061ec58f-496e-4ad9-9609-c6221ca3ac19";
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     username: null,
-    users: [
-      {
-        name: "Женя",
-        online: true
-      },
-      {
-        name: "Влад",
-        online: false
-      },
-      {
-        name: "Эдик",
-        online: true
-      },
-      {
-        name: "Глеб",
-        online: false
-      },
-      {
-        name: "Ваня",
-        online: false
-      }
-    ]
+    users: [],
+    messages: []
   },
   getters: {
     username(state) {
@@ -36,11 +18,20 @@ export default new Vuex.Store({
     },
     users(state) {
       return state.users;
+    },
+    messages(state) {
+      return state.messages;
     }
   },
   mutations: {
     setUsername(state, id) {
       state.username = id;
+    },
+    setUsers(state, members) {
+      state.users = members;
+    },
+    addMessage(state, message) {
+      state.messages.push(message);
     }
   },
   actions: {
@@ -50,6 +41,7 @@ export default new Vuex.Store({
         return false;
       }
       store.commit("setUsername", currentUser.id);
+      await chatkit.subscribeToRoom(MAIN_ROOM_ID);
       return true;
     }
   }
