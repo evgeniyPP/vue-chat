@@ -25,8 +25,11 @@
         :disabled="!validated"
         type="button"
         variant="primary"
-        >Войти</b-button
-      >
+        class="ld-ext-right"
+        :class="{ running: loading }"
+        >Войти
+        <div class="ld ld-ring ld-spin"></div>
+      </b-button>
     </b-form-group>
   </div>
 </template>
@@ -37,6 +40,7 @@ export default {
     return {
       username: "",
       validated: false,
+      loading: false,
       alert: false,
       alertText: ""
     };
@@ -52,9 +56,11 @@ export default {
     },
     async onSubmit() {
       try {
+        this.loading = true;
         await this.$store.dispatch("login", this.username);
         this.$router.push("/chat");
       } catch (e) {
+        this.loading = false;
         this.alert = true;
         if (e.info.error === "services/chatkit/not_found/user_not_found") {
           this.alertText = "Пользователь не найден";
@@ -84,5 +90,10 @@ export default {
 
 .alert {
   margin: 0 auto 1em auto;
+}
+
+.ld {
+  width: 1em;
+  height: 1em;
 }
 </style>
