@@ -10,7 +10,8 @@ export default new Vuex.Store({
   state: {
     username: null,
     users: [],
-    messages: []
+    messages: [],
+    error: null
   },
   getters: {
     username(state) {
@@ -24,6 +25,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    setError(state, error) {
+      state.error = error;
+    },
     setUsername(state, id) {
       state.username = id;
     },
@@ -43,6 +47,15 @@ export default new Vuex.Store({
       store.commit("setUsername", currentUser.id);
       await chatkit.subscribeToRoom(MAIN_ROOM_ID);
       return true;
+    },
+    async sendMessage(store, text) {
+      try {
+        await chatkit.sendMessage(text);
+        return true;
+      } catch (e) {
+        store.commit("setError", e.info.error);
+        return false;
+      }
     }
   }
 });

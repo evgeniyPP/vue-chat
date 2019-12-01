@@ -59,13 +59,13 @@ async function subscribeToRoom(roomId) {
   return activeRoom;
 }
 
-// async function sendMessage(text) {
-//   const messageId = await currentUser.sendMessage({
-//     text,
-//     roomId: activeRoom.id
-//   });
-//   return messageId;
-// }
+async function sendMessage(text) {
+  const messageId = await currentUser.sendMessage({
+    text,
+    roomId: activeRoom.id
+  });
+  return messageId;
+}
 
 // export function isTyping(roomId) {
 //   currentUser.isTypingIn({ roomId });
@@ -77,8 +77,8 @@ async function subscribeToRoom(roomId) {
 
 export default {
   connectUser,
-  subscribeToRoom
+  subscribeToRoom,
+  sendMessage
   // ,
-  // sendMessage,
   // disconnectUser
 };

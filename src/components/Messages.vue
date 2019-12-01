@@ -22,4 +22,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.messages {
+  max-height: 60vh;
+  overflow: auto;
+}
+</style>
