@@ -66,6 +66,15 @@ export default new Vuex.Store({
         store.commit("setError", e.info.error);
         return false;
       }
+    },
+    async exitChat(store) {
+      try {
+        await chatkit.disconnectUser();
+        return true;
+      } catch (e) {
+        store.commit("setError", e.info.error);
+        return false;
+      }
     }
   }
 });

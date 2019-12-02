@@ -7,7 +7,7 @@
         <b-navbar-nav class="ml-auto">
           <Users />
           <Rooms />
-          <b-nav-item href="#">Выйти</b-nav-item>
+          <b-nav-item @click="onExit">Выйти</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -19,7 +19,15 @@ import Rooms from "./Rooms";
 import Users from "./Users";
 
 export default {
-  components: { Rooms, Users }
+  components: { Rooms, Users },
+  methods: {
+    async onExit() {
+      const exit = await this.$store.dispatch("exitChat");
+      if (exit) {
+        this.$router.push("/");
+      }
+    }
+  }
 };
 </script>
 

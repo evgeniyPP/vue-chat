@@ -70,14 +70,13 @@ export function isTyping(roomId = store.state.MAIN_ROOM_ID) {
   currentUser.isTypingIn({ roomId });
 }
 
-// function disconnectUser() {
-//   currentUser.disconnect();
-// }
+function disconnectUser() {
+  currentUser.disconnect();
+}
 
 export default {
   connectUser,
   subscribeToRoom,
-  sendMessage
-  // ,
-  // disconnectUser
+  sendMessage,
+  disconnectUser
 };
