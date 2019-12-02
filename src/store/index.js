@@ -2,8 +2,6 @@ import Vue from "vue";
 import Vuex from "vuex";
 import chatkit from "../chatkit";
 
-const MAIN_ROOM_ID = "061ec58f-496e-4ad9-9609-c6221ca3ac19";
-
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -12,7 +10,9 @@ export default new Vuex.Store({
     users: [],
     messages: [],
     rooms: ["Main", "Second", "Third", "Fourth"],
-    error: null
+    error: null,
+    userTyping: null,
+    MAIN_ROOM_ID: "061ec58f-496e-4ad9-9609-c6221ca3ac19"
   },
   getters: {
     username(state) {
@@ -26,6 +26,9 @@ export default new Vuex.Store({
     },
     rooms(state) {
       return state.rooms;
+    },
+    userTyping(state) {
+      return state.userTyping;
     }
   },
   mutations: {
@@ -40,6 +43,9 @@ export default new Vuex.Store({
     },
     addMessage(state, message) {
       state.messages.push(message);
+    },
+    setUserTyping(state, userId) {
+      state.userTyping = userId;
     }
   },
   actions: {
@@ -49,7 +55,7 @@ export default new Vuex.Store({
         return false;
       }
       store.commit("setUsername", currentUser.id);
-      await chatkit.subscribeToRoom(MAIN_ROOM_ID);
+      await chatkit.subscribeToRoom(store.state.MAIN_ROOM_ID);
       return true;
     },
     async sendMessage(store, text) {

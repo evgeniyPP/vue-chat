@@ -45,14 +45,13 @@ async function subscribeToRoom(roomId) {
       },
       onPresenceChanged: () => {
         setMembers();
+      },
+      onUserStartedTyping: user => {
+        store.commit("setUserTyping", user.id);
+      },
+      onUserStoppedTyping: () => {
+        store.commit("setUserTyping", null);
       }
-      // ,
-      // onUserStartedTyping: user => {
-      //   store.commit("setUserTyping", user.id);
-      // },
-      // onUserStoppedTyping: () => {
-      //   store.commit("setUserTyping", null);
-      // }
     }
   });
   setMembers();
@@ -67,9 +66,9 @@ async function sendMessage(text) {
   return messageId;
 }
 
-// export function isTyping(roomId) {
-//   currentUser.isTypingIn({ roomId });
-// }
+export function isTyping(roomId = store.state.MAIN_ROOM_ID) {
+  currentUser.isTypingIn({ roomId });
+}
 
 // function disconnectUser() {
 //   currentUser.disconnect();
