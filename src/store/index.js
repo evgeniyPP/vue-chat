@@ -11,6 +11,7 @@ export default new Vuex.Store({
     username: null,
     users: [],
     messages: [],
+    rooms: ["Main", "Second", "Third", "Fourth"],
     error: null
   },
   getters: {
@@ -22,6 +23,9 @@ export default new Vuex.Store({
     },
     messages(state) {
       return state.messages;
+    },
+    rooms(state) {
+      return state.rooms;
     }
   },
   mutations: {
