@@ -9,10 +9,10 @@ export default new Vuex.Store({
     username: null,
     users: [],
     messages: [],
-    rooms: ["Main", "Second", "Third", "Fourth"],
+    rooms: [],
     error: null,
     userTyping: null,
-    MAIN_ROOM_ID: "061ec58f-496e-4ad9-9609-c6221ca3ac19"
+    activeRoom: null
   },
   getters: {
     username(state) {
@@ -29,6 +29,9 @@ export default new Vuex.Store({
     },
     userTyping(state) {
       return state.userTyping;
+    },
+    activeRoom(state) {
+      return state.activeRoom;
     }
   },
   mutations: {
@@ -46,17 +49,54 @@ export default new Vuex.Store({
     },
     setUserTyping(state, userId) {
       state.userTyping = userId;
+    },
+    setRooms(state, rooms) {
+      state.rooms = rooms;
+    },
+    setActiveRoom(state, payload) {
+      state.activeRoom = payload;
+    },
+    clearChatRoom(state) {
+      state.messages = [];
     }
   },
   actions: {
     async login(store, username) {
-      const currentUser = await chatkit.connectUser(username);
-      if (currentUser === []) {
+      try {
+        const currentUser = await chatkit.connectUser(username);
+        // if (currentUser === []) {
+        //   return false;
+        // }
+        store.commit("setUsername", currentUser.id);
+
+        const rooms = currentUser.rooms.map(room => ({
+          id: room.id,
+          name: room.name
+        }));
+        store.commit("setRooms", rooms);
+
+        const activeRoom = store.state.activeRoom || rooms[2];
+        store.commit("setActiveRoom", {
+          id: activeRoom.id,
+          name: activeRoom.name
+        });
+        await chatkit.subscribeToRoom(activeRoom.id);
+        return true;
+      } catch (e) {
         return false;
       }
-      store.commit("setUsername", currentUser.id);
-      await chatkit.subscribeToRoom(store.state.MAIN_ROOM_ID);
-      return true;
+    },
+    async changeRoom(store, roomId) {
+      try {
+        const room = await chatkit.subscribeToRoom(roomId);
+        store.commit("setActiveRoom", {
+          id: room.id,
+          name: room.name
+        });
+        return true;
+      } catch (e) {
+        return false;
+      }
     },
     async sendMessage(store, text) {
       try {

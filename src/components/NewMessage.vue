@@ -31,11 +31,11 @@ export default {
       if (send) this.text = "";
     },
     async isTyping() {
-      await isTyping();
+      await isTyping(this.activeRoom.id);
     }
   },
   computed: {
-    ...mapGetters(["userTyping"]),
+    ...mapGetters(["userTyping", "activeRoom"]),
     typing() {
       return this.userTyping ? `${this.userTyping} пишет сообщение...` : "";
     }

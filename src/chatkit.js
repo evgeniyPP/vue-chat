@@ -30,7 +30,7 @@ function setMembers() {
 }
 
 async function subscribeToRoom(roomId) {
-  // store.commit("clearChatRoom");
+  store.commit("clearChatRoom");
   activeRoom = await currentUser.subscribeToRoom({
     roomId,
     messageLimit: MESSAGE_LIMIT,
@@ -66,7 +66,7 @@ async function sendMessage(text) {
   return messageId;
 }
 
-export function isTyping(roomId = store.state.MAIN_ROOM_ID) {
+export function isTyping(roomId) {
   currentUser.isTypingIn({ roomId });
 }
 
