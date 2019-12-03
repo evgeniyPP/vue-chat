@@ -1,5 +1,5 @@
 <template>
-  <div class="messages">
+  <div class="messages" v-chat-scroll="{ smooth: true }">
     <OneMessage
       v-for="(message, index) in messages"
       :key="index"
