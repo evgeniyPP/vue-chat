@@ -1,8 +1,10 @@
 <template>
   <div class="chatPage">
     <Navbar />
-    <Messages />
-    <NewMessage />
+    <div class="main">
+      <Messages />
+      <NewMessage />
+    </div>
   </div>
 </template>
 
@@ -25,10 +27,10 @@ export default {
 };
 </script>
 
-<style>
-.chatPage {
+<style scoped>
+.main {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  padding-bottom: 70px;
 }
 </style>

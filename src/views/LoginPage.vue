@@ -62,11 +62,7 @@ export default {
       } catch (e) {
         this.loading = false;
         this.alert = true;
-        if (e.info.error === "services/chatkit/not_found/user_not_found") {
-          this.alertText = "Пользователь не найден";
-        } else {
-          this.alertText = "Неизвестная ошибка";
-        }
+        this.alertText = e;
       }
     }
   }

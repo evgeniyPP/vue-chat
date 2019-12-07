@@ -1,17 +1,16 @@
 <template>
-  <div class="newMessage">
-    <div class="typing">{{ typing }}</div>
-    <b-form-textarea
-      id="textarea"
-      v-model="text"
-      @input="isTyping"
-      placeholder="Новое сообщение..."
-      rows="3"
-      max-rows="6"
-    ></b-form-textarea>
-    <b-button @click="onSubmit" type="button" variant="primary">
-      <img src="../assets/send.png" alt="" />
-    </b-button>
+  <div>
+    <span class="typing">{{ typing }}</span>
+    <div class="newMessage">
+      <b-form-textarea
+        id="textarea"
+        v-model="text"
+        @input="isTyping"
+        placeholder="Новое сообщение..."
+        rows="1"
+      ></b-form-textarea>
+      <b-button @click="onSubmit" type="button" variant="primary"> </b-button>
+    </div>
   </div>
 </template>
 
@@ -45,29 +44,32 @@ export default {
 
 <style scoped>
 .newMessage {
-  position: fixed;
-  margin-top: 79vh;
+  display: flex;
+  align-items: center;
   width: 100%;
-  height: 100%;
-  background: #fff;
+  height: 50px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
 }
 
 textarea {
   width: 95%;
-  margin-left: 2.5%;
+  margin: 5px;
+  padding: 3px 5px;
+  resize: none;
+  align-self: stretch;
 }
 
 button {
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  float: right;
-  top: 2em;
-  right: 0.5em;
-  font-weight: bold;
+  margin: 0 5px;
+  width: 38px;
+  height: 38px;
+  background-image: url("../assets/send.png");
+  background-size: 30px;
+  background-repeat: no-repeat;
+  background-position: 50% 47%;
   border-radius: 100%;
-  margin-top: 0.5em;
-  margin-right: 0.5em;
 }
 
 img {
@@ -77,10 +79,9 @@ img {
   width: 70%;
 }
 .typing {
-  height: 3vh;
   color: gray;
   font-size: 0.85rem;
-  margin-left: 1em;
-  margin-bottom: 0.5em;
+  margin-left: 0.5em;
+  margin-bottom: 0.25em;
 }
 </style>

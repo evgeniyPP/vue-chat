@@ -1,6 +1,6 @@
 <template>
   <b-card>
-    <h6>{{ message.username }}</h6>
+    <h6 class="title">{{ message.username }}</h6>
     <p>
       {{ message.text }}
     </p>
@@ -13,7 +13,13 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.title {
+  font-size: 1.05rem;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 600;
+}
+
 .card {
   width: 95%;
   margin: 0 auto;

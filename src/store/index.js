@@ -64,9 +64,9 @@ export default new Vuex.Store({
     async login(store, username) {
       try {
         const currentUser = await chatkit.connectUser(username);
-        // if (currentUser === []) {
-        //   return false;
-        // }
+        if (currentUser === []) {
+          return false;
+        }
         store.commit("setUsername", currentUser.id);
 
         const rooms = currentUser.rooms.map(room => ({
@@ -75,7 +75,7 @@ export default new Vuex.Store({
         }));
         store.commit("setRooms", rooms);
 
-        const activeRoom = store.state.activeRoom || rooms[2];
+        const activeRoom = store.state.activeRoom || rooms[0];
         store.commit("setActiveRoom", {
           id: activeRoom.id,
           name: activeRoom.name
@@ -83,6 +83,11 @@ export default new Vuex.Store({
         await chatkit.subscribeToRoom(activeRoom.id);
         return true;
       } catch (e) {
+        if (e.info.error === "services/chatkit/not_found/user_not_found") {
+          store.commit("setError", "Пользователь не найден");
+        } else {
+          store.commit("setError", "Неизвестная ошибка");
+        }
         return false;
       }
     },

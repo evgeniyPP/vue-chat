@@ -5,7 +5,7 @@ import store from "./store/index";
 const INSTANCE_LOCATOR = "v1:us1:2b67c6d9-b25c-4b6a-b5fb-23c681bbdaf3";
 const TOKEN_URL =
   "https://us1.pusherplatform.io/services/chatkit_token_provider/v1/2b67c6d9-b25c-4b6a-b5fb-23c681bbdaf3/token";
-const MESSAGE_LIMIT = 10;
+const MESSAGE_LIMIT = 25;
 
 let currentUser = null;
 let activeRoom = null;

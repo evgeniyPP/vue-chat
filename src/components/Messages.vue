@@ -24,7 +24,8 @@ export default {
 
 <style scoped>
 .messages {
-  max-height: 60vh;
+  margin-top: 50px;
+  height: 80vh;
   overflow: auto;
 }
 </style>
