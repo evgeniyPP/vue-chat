@@ -1,0 +1,10 @@
+{
+    "name": "vue-chat",
+    "version": "1.0.0",
+    "description": "Chat, created by Vue.js, Chatkit & BootstapVue",
+    "author": "Evgeny Petryankin",
+    "private": true,
+    "scripts": {
+      "postinstall": "npm install express"
+    }
+}
