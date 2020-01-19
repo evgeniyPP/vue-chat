@@ -35,15 +35,20 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   data() {
     return {
-      username: "",
+      username: '',
       validated: false,
       loading: false,
       alert: false,
-      alertText: ""
+      alertText: ''
     };
+  },
+  computed: {
+    ...mapGetters(['error'])
   },
   methods: {
     onInput(value) {
@@ -57,12 +62,12 @@ export default {
     async onSubmit() {
       try {
         this.loading = true;
-        await this.$store.dispatch("login", this.username);
-        this.$router.push("/chat");
+        await this.$store.dispatch('login', this.username);
+        this.$router.push('/chat');
       } catch (e) {
         this.loading = false;
         this.alert = true;
-        this.alertText = e;
+        this.alertText = this.error;
       }
     }
   }

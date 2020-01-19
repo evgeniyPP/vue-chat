@@ -1,6 +1,6 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import chatkit from "../chatkit";
+import Vue from 'vue';
+import Vuex from 'vuex';
+import chatkit from '../chatkit';
 
 Vue.use(Vuex);
 
@@ -32,6 +32,9 @@ export default new Vuex.Store({
     },
     activeRoom(state) {
       return state.activeRoom;
+    },
+    error(state) {
+      return state.error;
     }
   },
   mutations: {
@@ -47,8 +50,8 @@ export default new Vuex.Store({
     addMessage(state, message) {
       state.messages.push(message);
     },
-    setUserTyping(state, userId) {
-      state.userTyping = userId;
+    setUserTyping(state, name) {
+      state.userTyping = name;
     },
     setRooms(state, rooms) {
       state.rooms = rooms;
@@ -67,34 +70,33 @@ export default new Vuex.Store({
         if (currentUser === []) {
           return false;
         }
-        store.commit("setUsername", currentUser.id);
+        store.commit('setUsername', currentUser.id);
 
         const rooms = currentUser.rooms.map(room => ({
           id: room.id,
           name: room.name
         }));
-        store.commit("setRooms", rooms);
-
+        store.commit('setRooms', rooms.reverse());
         const activeRoom = store.state.activeRoom || rooms[0];
-        store.commit("setActiveRoom", {
+        store.commit('setActiveRoom', {
           id: activeRoom.id,
           name: activeRoom.name
         });
         await chatkit.subscribeToRoom(activeRoom.id);
         return true;
       } catch (e) {
-        if (e.info.error === "services/chatkit/not_found/user_not_found") {
-          store.commit("setError", "Пользователь не найден");
+        if (e.info.error === 'services/chatkit/not_found/user_not_found') {
+          store.commit('setError', 'Пользователь не найден');
         } else {
-          store.commit("setError", "Неизвестная ошибка");
+          store.commit('setError', 'Неизвестная ошибка');
         }
-        return false;
+        throw e;
       }
     },
     async changeRoom(store, roomId) {
       try {
         const room = await chatkit.subscribeToRoom(roomId);
-        store.commit("setActiveRoom", {
+        store.commit('setActiveRoom', {
           id: room.id,
           name: room.name
         });
@@ -108,7 +110,7 @@ export default new Vuex.Store({
         await chatkit.sendMessage(text);
         return true;
       } catch (e) {
-        store.commit("setError", e.info.error);
+        store.commit('setError', e.info.error);
         return false;
       }
     },
@@ -117,7 +119,7 @@ export default new Vuex.Store({
         await chatkit.disconnectUser();
         return true;
       } catch (e) {
-        store.commit("setError", e.info.error);
+        store.commit('setError', e.info.error);
         return false;
       }
     }

@@ -4,4 +4,11 @@
   </div>
 </template>
 
-<style></style>
+<style>
+body {
+  -ms-overflow-style: none;
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+</style>

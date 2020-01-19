@@ -15,20 +15,20 @@
 </template>
 
 <script>
-import Rooms from "./Rooms";
-import Users from "./Users";
-import { mapGetters } from "vuex";
+import Rooms from './Rooms';
+import Users from './Users';
+import { mapGetters } from 'vuex';
 
 export default {
   components: { Rooms, Users },
   computed: {
-    ...mapGetters(["username"])
+    ...mapGetters(['username'])
   },
   methods: {
     async onExit() {
-      const exit = await this.$store.dispatch("exitChat");
+      const exit = await this.$store.dispatch('exitChat');
       if (exit) {
-        this.$router.push("/");
+        this.$router.push('/');
       }
     }
   }
@@ -38,7 +38,7 @@ export default {
 <style scoped>
 .title {
   font-size: 1.35rem;
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-weight: 600;
 }
 .navbar {

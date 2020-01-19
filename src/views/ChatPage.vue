@@ -3,25 +3,27 @@
     <Navbar />
     <div class="main">
       <Messages />
+      <UserTyping />
       <NewMessage />
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import Navbar from "../components/Navbar";
-import Messages from "../components/Messages";
-import NewMessage from "../components/NewMessage";
+import { mapGetters } from 'vuex';
+import Navbar from '../components/Navbar';
+import Messages from '../components/Messages';
+import NewMessage from '../components/NewMessage';
+import UserTyping from '../components/UserTyping';
 
 export default {
-  components: { Navbar, Messages, NewMessage },
+  components: { Navbar, Messages, NewMessage, UserTyping },
   computed: {
-    ...mapGetters(["username"])
+    ...mapGetters(['username'])
   },
   beforeMount() {
     if (this.username === null) {
-      this.$router.push("/");
+      this.$router.push('/');
     }
   }
 };
@@ -31,6 +33,6 @@ export default {
 .main {
   display: flex;
   flex-direction: column;
-  padding-bottom: 70px;
+  align-items: center;
 }
 </style>

@@ -13,16 +13,16 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
 
 export default {
   methods: {
     status(presence) {
-      return presence === "online" ? true : false;
+      return presence === 'online' ? true : false;
     }
   },
   computed: {
-    ...mapGetters(["users"])
+    ...mapGetters(['users'])
   }
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <b-card>
-    <h6 class="title">{{ message.username }}</h6>
+    <h6 class="title">{{ message.name }}</h6>
     <p>
       {{ message.text }}
     </p>
@@ -9,14 +9,14 @@
 
 <script>
 export default {
-  props: ["message"]
+  props: ['message']
 };
 </script>
 
 <style scoped>
 .title {
   font-size: 1.05rem;
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-weight: 600;
 }
 

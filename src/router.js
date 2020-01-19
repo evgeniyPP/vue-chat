@@ -1,25 +1,25 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Login from "./views/LoginPage";
-import Chat from "./views/ChatPage";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Login from './views/LoginPage';
+import Chat from './views/ChatPage';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
-    name: "login",
+    path: '/',
+    name: 'login',
     component: Login
   },
   {
-    path: "/chat",
-    name: "chat",
+    path: '/chat',
+    name: 'chat',
     component: Chat
   }
 ];
 
 const router = new VueRouter({
-  mode: "history",
+  mode: 'history',
   base: process.env.BASE_URL,
   routes
 });
